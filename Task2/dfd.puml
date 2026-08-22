@@ -1,0 +1,124 @@
+@startuml
+!define RECTANGLE class
+
+skinparam componentStyle rectangle
+skinparam backgroundColor #FEFEFE
+skinparam component {
+  BorderColor #333366
+  BackgroundColor #EEEEFF
+  FontColor #333366
+}
+skinparam database {
+  BorderColor #336633VD
+  BackgroundColor #EEFFEE
+  FontColor #336633
+}
+skinparam actor {
+  BorderColor #663333
+  BackgroundColor #FFEEEE
+  FontColor #663333
+}
+skinparam arrow {
+  Color #333333
+  FontColor #333333
+}
+
+title Data Flow Diagram (DFD Level 1) - Будущее 2.0\nПотоки данных между доменами
+
+' ===== ВНЕШНИЕ СУЩНОСТИ =====
+actor "Оператор клиники" as Operator
+actor "Аналитик / Менеджер" as Analyst
+actor "Финтех-оператор" as FinOp
+actor "Исследователь ИИ" as AIResearcher
+actor "Партнёр (фарма/электроника)" as Partner
+actor "Регулятор" as Regulator
+
+' ===== ДОМЕНЫ (КОМПОНЕНТЫ) =====
+component "Домен «Клиники»" as Clinics {
+  database "Операционная БД\n(PostgreSQL)" as ClinicDB
+  component "Бизнес-логика\n(Java/Go)" as ClinicLogic
+  component "Интерфейс\n(PowerBuilder/новый)" as ClinicUI
+}
+
+component "Домен «Финтех»" as Fintech {
+  database "Операционная БД\n(PostgreSQL)" as FinDB
+  component "Банковские сервисы\n(Golang/Java)" as FinLogic
+  component "Комплаенс-модуль" as FinComp
+}
+
+component "Домен «ИИ-сервисы»" as AI {
+  database "Хранилище мед. данных\n(защищённое)" as AIDB
+  component "ML-сервисы\n(Python)" as AILogic
+  component "Анонимизатор" as AIAnon
+}
+
+component "Домен «Партнёры» (будущее)" as Partners {
+  component "Адаптеры\n(Go/Java)" as PartnerAdapter
+  database "Внешние данные\n(кеш)" as PartnerCache
+}
+
+component "Домен «Аналитика»" as Analytics {
+  database "Витрины данных\n(ClickHouse/Synapse)" as MartDB
+  component "Портал самообслуживания" as Portal
+  component "BI (Power BI)" as BI
+}
+
+' ===== ИНТЕГРАЦИОННЫЙ СЛОЙ =====
+component "Интеграционный слой\n(Kafka + Debezium)" as Integration {
+  component "CDC-коннекторы" as CDC
+  component "Stream Processing" as Stream
+  component "Schema Registry" as SchemaReg
+  component "API Gateway" as Gateway
+}
+
+' ===== ПОТОКИ ДАННЫХ (стрелки) =====
+
+' От внешних к доменам
+Operator --> ClinicUI : "Ввод/запрос данных"
+FinOp --> FinLogic : "Финансовые операции"
+AIResearcher --> AILogic : "Загрузка моделей/данных"
+Analyst --> Portal : "Запросы отчётов"
+Partner --> PartnerAdapter : "Заказы, каталоги, испытания"
+Regulator --> FinComp : "Отчётность по требованию"
+
+' Клиники -> Интеграция
+ClinicDB --> CDC : "CDC (изменения: пациенты,\nприёмы, инвентарь, персонал)"
+ClinicLogic --> CDC : "События бизнес-процессов"
+note right of CDC : "Без медкарт и диагнозов"
+
+' Финтех -> Интеграция
+FinDB --> CDC : "CDC (счета, транзакции,\nкредиты, платежи)"
+FinLogic --> Stream : "События (Kafka/Avro)"
+
+' ИИ -> Интеграция (только анонимизированные метрики)
+AIAnon --> Stream : "Анонимные метрики\n(точность, время, кол-во)"
+AILogic --> ClinicLogic : "Рекомендации (REST/gRPC)"
+
+' Партнёры -> Интеграция
+PartnerAdapter --> Stream : "Данные по заказам,\nпоставкам (Avro)"
+
+' Интеграция -> Аналитика
+CDC --> Stream : "Сырые события"
+Stream --> MartDB : "Трансформированные данные\n(батч/стрим)"
+
+' Аналитика -> Внешние
+Portal --> Analyst : "Дашборды, отчёты"
+BI --> Analyst : "Управленческая отчётность"
+MartDB --> Portal : "Данные витрин (SQL/ODBC)"
+MartDB --> BI : "Агрегаты (SQL)"
+
+' Финтех -> Регулятор (прямой)
+FinComp --> Regulator : "XBRL, XML\n(бухгалтерская, ЦБ-отчётность)"
+
+' Клиники -> Партнёры (обезличенные агрегаты)
+ClinicLogic --> PartnerAdapter : "Агрегированные обезличенные\nданные (с согласия пациентов)"
+
+' Дополнительно: управление доступом
+Gateway --> MartDB : "Проверка прав ABAC"
+Portal --> Gateway : "Аутентификация"
+
+' ===== ПРИМЕЧАНИЯ =====
+note bottom of Integration : "Единый интеграционный слой\nобеспечивает ослабление связей"
+note top of Analytics : "Не содержит медицинских карт,\nисторий болезней, результатов исследований"
+
+@enduml

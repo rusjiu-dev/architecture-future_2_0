@@ -1,3 +1,28 @@
+# Terraform
+.terraform/
+*.tfvars
+*.tfvars.json
+terraform.tfstate
+terraform.tfstate.*
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# Секреты
 key.json
+*.pem
+*.key
+*.crt
+
+# Системные файлы
 install.ps1
-.terraform
+*.exe
+*.log
+*.bkp
+*.tmp
+
+# Папки Task
+Task*/.terraform/
+Task*/*.tfvars
+Task*/*.tfstate
+Task*/*.exe

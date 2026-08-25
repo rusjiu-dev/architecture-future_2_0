@@ -1,0 +1,244 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.6 Chrome/140.0.7339.249 Electron/38.8.0 Safari/537.36" version="29.3.6">
+  <diagram name="C4 - Контейнеры" id="c4-containers">
+    <mxGraphModel dx="2946" dy="1235" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="user-group" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=0;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#f5f5f5;strokeColor=#666666;" value="Пользователи" vertex="1">
+          <mxGeometry height="100" width="360" x="45" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="user-analyst" parent="user-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=0;" value="Аналитик / Менеджер" vertex="1">
+          <mxGeometry height="50" width="330" x="30" as="geometry" />
+        </mxCell>
+        <mxCell id="user-operator" parent="user-group" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Оператор клиники" vertex="1">
+          <mxGeometry height="50" width="330" x="30" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="portal-container" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=0;startSize=50;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;whiteSpace=wrap;" value="Портал самообслуживания (Data Portal)" vertex="1">
+          <mxGeometry height="160" width="360" x="45" y="318" as="geometry" />
+        </mxCell>
+        <mxCell id="portal-web" parent="portal-container" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Веб-интерфейс (React)" vertex="1">
+          <mxGeometry height="40" width="310" x="50" as="geometry" />
+        </mxCell>
+        <mxCell id="portal-api" parent="portal-container" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="API Gateway + Авторизация (ABAC)" vertex="1">
+          <mxGeometry height="40" width="310" x="50" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="portal-cache" parent="portal-container" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Кэш отчётов (Redis)" vertex="1">
+          <mxGeometry height="40" width="310" x="50" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="portal-bi" parent="portal-container" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Визуализация (Power BI)" vertex="1">
+          <mxGeometry height="40" width="310" x="50" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="mart-layer" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=0;startSize=50;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;whiteSpace=wrap;" value="Слой витрин данных (ClickHouse / Synapse)" vertex="1">
+          <mxGeometry height="160" width="360" x="45" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="mart-fin" parent="mart-layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Финансовая витрина" vertex="1">
+          <mxGeometry height="40" width="310" x="50" as="geometry" />
+        </mxCell>
+        <mxCell id="mart-ops" parent="mart-layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Операционная витрина" vertex="1">
+          <mxGeometry height="40" width="310" x="50" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="mart-aggr" parent="mart-layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Агрегированная витрина (KPI)" vertex="1">
+          <mxGeometry height="40" width="310" x="50" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="mart-security" parent="mart-layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Политики доступа (ABAC)" vertex="1">
+          <mxGeometry height="40" width="310" x="50" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="integration-layer" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=0;startSize=50;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#f8cecc;strokeColor=#b85450;whiteSpace=wrap;" value="Интеграционный слой (Kafka / Event Hub)" vertex="1">
+          <mxGeometry height="200" width="390" x="475" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="integration-cdc" parent="integration-layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#b85450;" value="CDC (Debezium)" vertex="1">
+          <mxGeometry height="40" width="320" x="70" as="geometry" />
+        </mxCell>
+        <mxCell id="integration-stream" parent="integration-layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#b85450;" value="ФЛК + Stream Processing (Kafka Streams)" vertex="1">
+          <mxGeometry height="40" width="320" x="70" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="integration-sink" parent="integration-layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#b85450;" value="Sink Connectors (витрины)" vertex="1">
+          <mxGeometry height="40" width="320" x="70" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="integration-schema" parent="integration-layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#b85450;" value="Schema Registry (Avro/Protobuf)" vertex="1">
+          <mxGeometry height="40" width="320" x="70" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="integration-dlq" parent="integration-layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#b85450;" value="DLQ + Retry (Kafka Consumer)" vertex="1">
+          <mxGeometry height="40" width="320" x="70" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="domain-clinics" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=0;startSize=60;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;whiteSpace=wrap;" value="Домен «Клиники» (легаси + миграция)" vertex="1">
+          <mxGeometry height="200" width="380" x="1110" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="clinics-dwh" parent="domain-clinics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="DWH SQL Server 2008 (временное сохранение)" vertex="1">
+          <mxGeometry height="50" width="320" x="60" as="geometry" />
+        </mxCell>
+        <mxCell id="clinics-pb" parent="domain-clinics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="PowerBuilder (интерфейс) → замена на React" vertex="1">
+          <mxGeometry height="50" width="320" x="60" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="clinics-migration" parent="domain-clinics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Сервисы миграции (Go/Java)" vertex="1">
+          <mxGeometry height="50" width="320" x="60" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="clinics-ops" parent="domain-clinics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Операционная БД (PostgreSQL)" vertex="1">
+          <mxGeometry height="50" width="320" x="60" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="domain-fintech" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=0;startSize=70;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#e1d5e7;strokeColor=#9673a6;whiteSpace=wrap;" value="Домен «Финтех» (банковская лицензия)" vertex="1">
+          <mxGeometry height="200" width="366" x="1125" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="fintech-api" parent="domain-fintech" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="API (Golang/Java) + Бизнес-логика" vertex="1">
+          <mxGeometry height="50" width="296" x="70" as="geometry" />
+        </mxCell>
+        <mxCell id="fintech-db" parent="domain-fintech" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Операционная БД (PostgreSQL)" vertex="1">
+          <mxGeometry height="50" width="296" x="70" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="fintech-events" parent="domain-fintech" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Публикация событий (Kafka)" vertex="1">
+          <mxGeometry height="50" width="296" x="70" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="fintech-compliance" parent="domain-fintech" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Модуль комплаенс" vertex="1">
+          <mxGeometry height="50" width="296" x="70" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="domain-ai" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=0;startSize=70;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#fff2cc;strokeColor=#d6b656;whiteSpace=wrap;" value="Домен «ИИ-сервисы» (медицинские данные)" vertex="1">
+          <mxGeometry height="200" width="366" x="1125" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="ai-ml" parent="domain-ai" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="ML-сервисы (Python) + Бизнес-логика" vertex="1">
+          <mxGeometry height="50" width="296" x="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ai-db" parent="domain-ai" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Хранилище мед. данных (защищённое)" vertex="1">
+          <mxGeometry height="50" width="296" x="70" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ai-api" parent="domain-ai" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Внутренний API (REST/gRPC)" vertex="1">
+          <mxGeometry height="50" width="296" x="70" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ai-anonym" parent="domain-ai" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Анонимизатор (для метрик)" vertex="1">
+          <mxGeometry height="50" width="296" x="70" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="batch-orchestrator" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=0;startSize=50;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#f3e5f5;strokeColor=#7b1fa2;whiteSpace=wrap;" value="Пакетная обработка (Apache Airflow)" vertex="1">
+          <mxGeometry height="120" width="390" x="530" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="batch-etl" parent="batch-orchestrator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1bee7;strokeColor=#7b1fa2;" value="ETL-пайплайны (Python/Go)" vertex="1">
+          <mxGeometry height="40" width="340" x="50" as="geometry" />
+        </mxCell>
+        <mxCell id="batch-transforms" parent="batch-orchestrator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1bee7;strokeColor=#7b1fa2;" value="Пакетные трансформации (Batch)" vertex="1">
+          <mxGeometry height="40" width="340" x="50" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="batch-monitor" parent="batch-orchestrator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1bee7;strokeColor=#7b1fa2;" value="Мониторинг + Retry (Airflow)" vertex="1">
+          <mxGeometry height="40" width="340" x="50" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="link-user-portal" edge="1" parent="1" source="user-group" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;endArrow=classic;startArrow=none;strokeColor=#666666;" target="portal-container">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link-user-portal-label" connectable="0" parent="link-user-portal" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="HTTPS / REST" vertex="1">
+          <mxGeometry relative="1" x="-0.1" y="1" as="geometry">
+            <mxPoint x="10" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="link-portal-mart" edge="1" parent="1" source="portal-container" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;endArrow=classic;startArrow=none;strokeColor=#82b366;" target="mart-layer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link-portal-mart-label" connectable="0" parent="link-portal-mart" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="SQL / ODBC" vertex="1">
+          <mxGeometry relative="1" x="-0.1" y="1" as="geometry">
+            <mxPoint x="10" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="link-integration-mart" edge="1" parent="1" source="integration-layer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;endArrow=classic;startArrow=none;strokeColor=#b85450;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="695" y="240" />
+              <mxPoint x="695" y="400" />
+              <mxPoint x="430" y="400" />
+              <mxPoint x="430" y="690" />
+              <mxPoint x="405" y="690" />
+            </Array>
+            <mxPoint x="405" y="690" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="link-integration-mart-label" connectable="0" parent="link-integration-mart" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Stream / Batch" vertex="1">
+          <mxGeometry relative="1" x="-0.2" y="1" as="geometry">
+            <mxPoint x="45" y="319" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="link-clinics-integration" edge="1" parent="1" source="clinics-dwh" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;endArrow=classic;startArrow=none;strokeColor=#6c8ebf;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1330" y="535" />
+              <mxPoint x="810" y="535" />
+            </Array>
+            <mxPoint x="810" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="link-clinics-integration-label" connectable="0" parent="link-clinics-integration" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="CDC / ETL" vertex="1">
+          <mxGeometry relative="1" x="-0.1" y="1" as="geometry">
+            <mxPoint x="-5" y="5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="link-fintech-integration" edge="1" parent="1" source="domain-fintech" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.25;entryX=1;entryY=0.5;endArrow=classic;startArrow=none;strokeColor=#9673a6;" target="integration-layer">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="905" y="90" />
+              <mxPoint x="905" y="140" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="link-fintech-integration-label" connectable="0" parent="link-fintech-integration" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Kafka (Avro)" vertex="1">
+          <mxGeometry relative="1" x="-0.1" y="1" as="geometry">
+            <mxPoint x="5" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="link-ai-integration" edge="1" parent="1" source="domain-ai" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.25;entryX=1;entryY=0.75;endArrow=classic;startArrow=none;strokeColor=#d6b656;dashed=1;dashPattern=5 5;" target="integration-layer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="link-ai-integration-label" connectable="0" parent="link-ai-integration" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Аноним. метрики (Kafka)" vertex="1">
+          <mxGeometry relative="1" x="-0.1" y="1" as="geometry">
+            <mxPoint x="-5" y="5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="link-batch-integration" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;startArrow=none;strokeColor=#7b1fa2;entryX=0.666;entryY=0.95;entryDx=0;entryDy=0;entryPerimeter=0;" target="integration-dlq">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="760" y="617" />
+              <mxPoint x="760" y="240" />
+              <mxPoint x="758" y="240" />
+            </Array>
+            <mxPoint x="760" y="620" as="sourcePoint" />
+            <mxPoint x="830" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="link-batch-integration-label" connectable="0" parent="link-batch-integration" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Batch ETL" vertex="1">
+          <mxGeometry relative="1" x="-0.1" y="1" as="geometry">
+            <mxPoint x="-10" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="link-batch-mart" edge="1" parent="1" source="batch-etl" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.25;endArrow=classic;startArrow=none;strokeColor=#7b1fa2;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" target="mart-aggr">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="710" y="480" />
+              <mxPoint x="470" y="480" />
+              <mxPoint x="470" y="720" />
+            </Array>
+            <mxPoint x="680" y="560" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="link-batch-mart-label" connectable="0" parent="link-batch-mart" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Загрузка витрин" vertex="1">
+          <mxGeometry relative="1" x="-0.2" y="1" as="geometry">
+            <mxPoint x="-10" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="legend" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=0;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#ffffff;strokeColor=#000000;" value="Легенда" vertex="1">
+          <mxGeometry height="145" width="340" x="1150" y="910" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-mart" parent="legend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Слой витрин / хранилища" vertex="1">
+          <mxGeometry height="25" width="310" x="30" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-integration" parent="legend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad9d5;strokeColor=#b85450;" value="Интеграция / потоки (ФЛК, Stream, DLQ)" vertex="1">
+          <mxGeometry height="25" width="310" x="30" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-domain" parent="legend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Доменные сервисы (бизнес-логика)" vertex="1">
+          <mxGeometry height="25" width="310" x="30" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-ui" parent="legend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Пользовательский интерфейс" vertex="1">
+          <mxGeometry height="25" width="310" x="30" y="75" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-batch" parent="legend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1bee7;strokeColor=#7b1fa2;" value="Пакетная обработка (Airflow)" vertex="1">
+          <mxGeometry height="25" width="310" x="30" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-dashed" parent="legend" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;dashPattern=5 5;strokeColor=#d6b656;" value="Пунктир = анонимизированные данные" vertex="1">
+          <mxGeometry height="20" width="310" x="30" y="125" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
